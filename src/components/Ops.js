@@ -8,32 +8,29 @@ function Ops() {
         const myInput = parseFloat(res.input);
         if (isNaN(myInput)) { alert('Please Enter a valud number!'); return; }
         const myResult = parseFloat(res.result);
-        const ops = ['+', '-', '/', '*', 'ri', 'rr'];
         const currentOp = e.target.value;
-        if (ops.includes(currentOp)) {
-            switch (currentOp) {
-                case '+':
-                    setRes({ ...res, result: myResult + myInput });
-                    break;
-                case '-':
-                    setRes({ ...res, result: myResult - myInput });
-                    break;
-                case '*':
-                    setRes({ ...res, result: myResult * myInput });
-                    break;
-                case '/':
-                    myInput === 0 ? alert('Division by zero not allowed!') :
-                        setRes({ ...res, result: myResult / myInput });
-                    break;
-                case 'ri':
-                    setRes({ ...res, input: 0 });
-                    break;
-                case 'rr':
-                    setRes({ ...res, result: 0 });
-                    break;
-                default:
-                    alert('Invalid operation!');
-            }
+        switch (currentOp) {
+            case '+':
+                setRes({ ...res, result: myResult + myInput });
+                break;
+            case '-':
+                setRes({ ...res, result: myResult - myInput });
+                break;
+            case '*':
+                setRes({ ...res, result: myResult * myInput });
+                break;
+            case '/':
+                myInput === 0 ? alert('Division by zero not allowed!') :
+                    setRes({ ...res, result: myResult / myInput });
+                break;
+            case 'ri':
+                setRes({ ...res, input: 0 });
+                break;
+            case 'rr':
+                setRes({ ...res, result: 0 });
+                break;
+            default:
+                alert('Invalid operation!');
         }
     }
 
