@@ -1,34 +1,50 @@
 import { useInputResultContext } from "../providers/InputResultProvider";
 
 function Ops() {
+
     const [res, setRes] = useInputResultContext();
-    function add() {
-        setRes({ ...res, result: parseFloat(res.result) + parseFloat(res.input) });
+
+    function doOperation(e) {
+        const myInput = parseFloat(res.input);
+        if (isNaN(myInput)) { alert('Please Enter a valud number!'); return; }
+        const myResult = parseFloat(res.result);
+        const ops = ['+', '-', '/', '*', 'ri', 'rr'];
+        const currentOp = e.target.value;
+        if (ops.includes(currentOp)) {
+            switch (currentOp) {
+                case '+':
+                    setRes({ ...res, result: myResult + myInput });
+                    break;
+                case '-':
+                    setRes({ ...res, result: myResult - myInput });
+                    break;
+                case '*':
+                    setRes({ ...res, result: myResult * myInput });
+                    break;
+                case '/':
+                    myInput === 0 ? alert('Division by zero not allowed!') :
+                        setRes({ ...res, result: myResult / myInput });
+                    break;
+                case 'ri':
+                    setRes({ ...res, input: 0 });
+                    break;
+                case 'rr':
+                    setRes({ ...res, result: 0 });
+                    break;
+                default:
+                    alert('Invalid operation!');
+            }
+        }
     }
-    function subtract() {
-        setRes({ ...res, result: parseFloat(res.result) - parseFloat(res.input) });
-    }
-    function multiply() {
-        setRes({ ...res, result: parseFloat(res.result) * parseFloat(res.input) });
-    }
-    function divide() {
-        parseFloat(res.input) == 0 ? alert('Division by zero not allowed!') :
-            setRes({ ...res, result: parseFloat(res.result) / parseFloat(res.input) });
-    }
-    function resetInput() {
-        setRes({ ...res, input: 0 });
-    }
-    function resetResult() {
-        setRes({ ...res, result: 0 });
-    }
+
     return (
         <>
-            <button onClick={add}>add</button>
-            <button onClick={subtract}>subtract</button>
-            <button onClick={multiply}>multiply</button>
-            <button onClick={divide}>divide</button>
-            <button onClick={resetInput}>reset input</button>
-            <button onClick={resetResult}>reset Result</button>
+            <button value='+' onClick={doOperation}>add</button>
+            <button value='-' onClick={doOperation}>subtract</button>
+            <button value='*' onClick={doOperation}>multiply</button>
+            <button value='/' onClick={doOperation}>divide</button>
+            <button value='ri' onClick={doOperation}>reset input</button>
+            <button value='rr' onClick={doOperation}>reset Result</button>
         </>
     )
 }
